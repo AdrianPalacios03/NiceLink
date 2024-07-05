@@ -16,6 +16,19 @@ const ShortenerForm = ({URL}: props) => {
     const handleSubmit = async (e: React.FormEvent) => {
       setIsLoading(true)
       e.preventDefault();
+
+      if (!originalUrl) {
+        alert('Please enter a URL');
+        setIsLoading(false)
+        return;
+      }
+
+      // return if the input is not a valid URL
+      if (!/^(ftp|http|https):\/\/[^ "]+$/.test(originalUrl)) {
+        alert('Please enter a valid URL (include http/https/ftp)');
+        setIsLoading(false)
+        return;
+      }
   
       const config = {
         headers: {
